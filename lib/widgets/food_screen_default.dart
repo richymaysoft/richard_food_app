@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:figma_practice/riverpod/meals_provider.dart';
-import 'package:figma_practice/riverpod/category_provider.dart';
-import 'package:figma_practice/screens/full_meal_list_screen.dart';
-import 'package:figma_practice/models/meal.dart';
+import '/riverpod/meals_provider.dart';
+import '/riverpod/category_provider.dart';
+import '/screens/full_meal_list_screen.dart';
+import '/models/meal.dart';
+import '/data/dummy_data.dart';
 
-import 'package:figma_practice/widgets/meal_list.dart';
+import '/widgets/meal_list.dart';
 
 class FoodScreenDefault extends ConsumerStatefulWidget {
   const FoodScreenDefault({super.key});
@@ -15,23 +16,60 @@ class FoodScreenDefault extends ConsumerStatefulWidget {
 }
 
 String currentCat = 'cat0';
-List<Meal> categoryMealList = const [];
+List<Meal> categoryMealList = meals;
 final _focusNode = FocusNode();
+var controller = TextEditingController();
 
 class _FoodScreenDefaultState extends ConsumerState<FoodScreenDefault> {
+  void searchFood(query) {
+    if (currentCat == 'cat0') {
+      var filterMeal = meals.where((food) {
+        var mealLowerCase = food.title.toLowerCase();
+        var input = query.toLowerCase();
+        var filteredMeal = mealLowerCase.contains(input);
+        return filteredMeal;
+      }).toList();
+      setState(() {
+        categoryMealList = filterMeal;
+      });
+    } else {
+      List<Meal> catMealList =
+          meals.where((meal) => meal.categoryId == currentCat).toList();
+      var filterMeal = catMealList.where((food) {
+        var mealLowerCase = food.title.toLowerCase();
+        var input = query.toLowerCase();
+        var filteredMeal = mealLowerCase.contains(input);
+        return filteredMeal;
+      }).toList();
+      setState(() {
+        categoryMealList = filterMeal;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var meals = ref.read(mealsProvider);
     var categories = ref.read(categoryProvider);
 
     void focusCategory(String cId) {
-      var newCatMeals =
-          meals.where((catId) => catId.categoryId == cId).toList();
-      setState(() {
-        currentCat = cId;
+      if (cId == 'cat0') {
+        setState(() {
+          currentCat = cId;
 
-        categoryMealList = newCatMeals;
-      });
+          categoryMealList = meals;
+          searchFood(controller.text);
+        });
+      } else {
+        var newCatMeals =
+            meals.where((catId) => catId.categoryId == cId).toList();
+        setState(() {
+          currentCat = cId;
+
+          categoryMealList = newCatMeals;
+          searchFood(controller.text);
+        });
+      }
     }
 
     return Padding(
@@ -72,29 +110,24 @@ class _FoodScreenDefaultState extends ConsumerState<FoodScreenDefault> {
               ),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.search_outlined,
-                    color: Colors.black,
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
                   Expanded(
                     child: TextField(
-                        style: const TextStyle(color: Colors.black),
-                        focusNode: _focusNode,
-                        decoration: const InputDecoration(
-                            label: Text(
-                              'Search',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                                fontFamily: 'SF Pro Rounded',
-                                fontWeight: FontWeight.w600,
-                                height: 0,
-                              ),
-                            ),
-                            border: InputBorder.none)),
+                      controller: controller,
+                      style: const TextStyle(color: Colors.black),
+                      focusNode: _focusNode,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search_outlined,
+                            color: Colors.black,
+                          ),
+                          label: Text('Seaarch'),
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          labelStyle: TextStyle(color: Colors.black),
+                          border: InputBorder.none),
+
+                      onChanged: searchFood,
+                      // onTapOutside: (event) => searchFood,
+                    ),
                   ),
                 ],
               ),
@@ -174,13 +207,9 @@ class _FoodScreenDefaultState extends ConsumerState<FoodScreenDefault> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (ctx) => currentCat == 'cat0'
-                                ? FullMealList(
-                                    mealList: meals,
-                                  )
-                                : FullMealList(
-                                    mealList: categoryMealList,
-                                  )));
+                            builder: (ctx) => FullMealList(
+                                  mealList: categoryMealList,
+                                )));
                     // Send all the list if Category '));
                   },
                   child: const Text(
@@ -203,19 +232,11 @@ class _FoodScreenDefaultState extends ConsumerState<FoodScreenDefault> {
 
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: currentCat == 'cat0'
-                      ? [
-                          ...meals.map((catMeal) {
-                            return MealList(meal: catMeal);
-                          })
-                        ]
-                      : [
-                          ...categoryMealList.map((catMeal) {
-                            return MealList(meal: catMeal);
-                          })
-                        ]),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                ...categoryMealList.map((catMeal) {
+                  return MealList(meal: catMeal);
+                })
+              ]),
             ),
           ]),
         ),
