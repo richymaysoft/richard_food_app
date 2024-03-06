@@ -1,6 +1,6 @@
-import 'package:figma_practice/models/user.dart';
-import 'package:figma_practice/riverpod/logged_in_user_provider.dart';
-import 'package:figma_practice/screens/offer_screen.dart';
+import '/models/user.dart';
+import '/riverpod/logged_in_user_provider.dart';
+import '/screens/offer_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,14 +11,13 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final User userDetails = ref.read(loggedInUserProvider)[0];
-    var screenHeight = MediaQuery.of(context).size.height;
-    // TODO: implement build
+
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F8),
+      backgroundColor: const Color(0xFFF5F5F8),
       appBar: AppBar(
-        backgroundColor: Color(0xFFF5F5F8),
+        backgroundColor: const Color(0xFFF5F5F8),
         leading: Container(
-          padding: EdgeInsets.only(top: 22, left: 25),
+          padding: const EdgeInsets.only(top: 22, left: 25),
           child: IconButton(
               onPressed: currentTab == 'profile'
                   ? null
@@ -28,20 +27,19 @@ class ProfileScreen extends ConsumerWidget {
               icon: Icon(
                 Icons.chevron_left,
                 size: 35,
-                color:
-                    currentTab == 'profile' ? Color(0xFFF5F5F8) : Colors.black,
+                color: currentTab == 'profile'
+                    ? const Color(0xFFF5F5F8)
+                    : Colors.black,
               )),
         ),
       ),
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 35, top: 30, right: 45),
-            width: 414,
-            height: screenHeight * 0.98,
+            padding: const EdgeInsets.only(left: 40, top: 30, right: 45),
             clipBehavior: Clip.antiAlias,
             decoration: ShapeDecoration(
-              color: Color(0xFFF5F5F8),
+              color: const Color(0xFFF5F5F8),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -49,7 +47,7 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'My profile',
                   style: TextStyle(
                     color: Colors.black,
@@ -59,10 +57,10 @@ class ProfileScreen extends ConsumerWidget {
                     height: 0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 35,
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -87,12 +85,12 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
-                  padding:
-                      EdgeInsets.only(left: 20, top: 20, right: 17, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      left: 20, top: 20, right: 17, bottom: 20),
                   width: 315,
                   height: 207,
                   decoration: ShapeDecoration(
@@ -100,7 +98,7 @@ class ProfileScreen extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    shadows: [
+                    shadows: const [
                       BoxShadow(
                         color: Color(0x07000000),
                         blurRadius: 40,
@@ -117,7 +115,7 @@ class ProfileScreen extends ConsumerWidget {
                         width: 91,
                         height: 100,
                         decoration: ShapeDecoration(
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             image: AssetImage(
                                 "assets/ToyFaces_Tansparent_BG_49.png"),
                             fit: BoxFit.fill,
@@ -127,7 +125,7 @@ class ProfileScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
@@ -137,7 +135,7 @@ class ProfileScreen extends ConsumerWidget {
                           children: [
                             Text(
                               userDetails.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontFamily: 'SF Pro Text',
@@ -149,7 +147,7 @@ class ProfileScreen extends ConsumerWidget {
                               opacity: 0.50,
                               child: Text(
                                 userDetails.email,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 15,
                                   fontFamily: 'SF Pro Text',
@@ -158,14 +156,14 @@ class ProfileScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 7,
                             ),
                             Opacity(
                               opacity: 0.50,
                               child: Container(
                                 width: 165,
-                                decoration: ShapeDecoration(
+                                decoration: const ShapeDecoration(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
                                       width: 0.50,
@@ -175,7 +173,7 @@ class ProfileScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 7,
                             ),
                             Opacity(
@@ -195,14 +193,14 @@ class ProfileScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 7,
                             ),
                             Opacity(
                               opacity: 0.50,
                               child: Container(
                                 width: 165,
-                                decoration: ShapeDecoration(
+                                decoration: const ShapeDecoration(
                                   shape: RoundedRectangleBorder(
                                     side: BorderSide(
                                       width: 0.50,
@@ -212,7 +210,7 @@ class ProfileScreen extends ConsumerWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 7,
                             ),
                             SizedBox(
@@ -241,13 +239,14 @@ class ProfileScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
                 //Orders.
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   width: 315,
                   height: 60,
                   decoration: ShapeDecoration(
@@ -255,7 +254,7 @@ class ProfileScreen extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    shadows: [
+                    shadows: const [
                       BoxShadow(
                         color: Color(0x07000000),
                         blurRadius: 40,
@@ -266,10 +265,10 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => OfferScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => const OfferScreen()));
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -290,14 +289,12 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
 
                 //pending review
 
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   width: 315,
                   height: 60,
                   decoration: ShapeDecoration(
@@ -305,7 +302,7 @@ class ProfileScreen extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    shadows: [
+                    shadows: const [
                       BoxShadow(
                         color: Color(0x07000000),
                         blurRadius: 40,
@@ -316,10 +313,10 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (ctx) => OfferScreen()));
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (ctx) => const OfferScreen()));
                     },
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -340,14 +337,12 @@ class ProfileScreen extends ConsumerWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
 
                 //faq
 
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   width: 315,
                   height: 60,
                   decoration: ShapeDecoration(
@@ -355,7 +350,7 @@ class ProfileScreen extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    shadows: [
+                    shadows: const [
                       BoxShadow(
                         color: Color(0x07000000),
                         blurRadius: 40,
@@ -364,7 +359,7 @@ class ProfileScreen extends ConsumerWidget {
                       )
                     ],
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -384,14 +379,12 @@ class ProfileScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
 
                 //help
 
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  margin: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 25),
                   width: 315,
                   height: 60,
                   decoration: ShapeDecoration(
@@ -399,7 +392,7 @@ class ProfileScreen extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    shadows: [
+                    shadows: const [
                       BoxShadow(
                         color: Color(0x07000000),
                         blurRadius: 40,
@@ -408,7 +401,7 @@ class ProfileScreen extends ConsumerWidget {
                       )
                     ],
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -428,23 +421,20 @@ class ProfileScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 35,
-                ),
-
-                //update button contain
 
                 Container(
-                  width: 314,
+                  margin: EdgeInsets.only(top: 20, right: 5, left: 5),
+                  padding: EdgeInsets.only(top: 25, bottom: 25),
+                  //width: 314,
                   alignment: Alignment.center,
-                  height: 70,
+                  // height: 70,
                   decoration: ShapeDecoration(
-                    color: Color(0xFFFA4A0C),
+                    color: const Color(0xFFFA4A0C),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Update',
                     textAlign: TextAlign.center,
                     style: TextStyle(
