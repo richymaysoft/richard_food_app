@@ -1,11 +1,11 @@
-import 'package:figma_practice/data/dummy_data.dart';
-import 'package:figma_practice/models/meal.dart';
-import 'package:figma_practice/riverpod/favorite_provider.dart';
-import 'package:figma_practice/screens/meal_details_screen%20.dart';
+import '/data/dummy_data.dart';
+import '/models/meal.dart';
+import '/riverpod/favorite_provider.dart';
+import 'meal_details_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:figma_practice/models/category.dart';
+import '/models/category.dart';
 
 class FullMealList extends ConsumerStatefulWidget {
   const FullMealList({super.key, required this.mealList, this.category});
@@ -65,7 +65,7 @@ class _FullMealListState extends ConsumerState<FullMealList> {
     }
 
     var screenHeight = MediaQuery.of(context).size.height;
-
+    //var bottomNavBar = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFEEEEEE),
       body: SingleChildScrollView(
@@ -113,8 +113,10 @@ class _FullMealListState extends ConsumerState<FullMealList> {
               ),
             ),
             Container(
-              width: 414,
-              height: screenHeight * 0.85,
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 1, bottom: 50),
+              // width: 414,
+              // height: screenHeight * 0.85,
               decoration: ShapeDecoration(
                 color: const Color(0xFFF9F9F9),
                 shape: RoundedRectangleBorder(
@@ -127,7 +129,7 @@ class _FullMealListState extends ConsumerState<FullMealList> {
                     height: 25,
                   ),
                   Text(
-                    'Found  $mealCount results',
+                    'Found  $mealCount resuls',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.black,
@@ -139,8 +141,8 @@ class _FullMealListState extends ConsumerState<FullMealList> {
                   ),
                   Container(
                     height: screenHeight * 0.75,
-                    padding:
-                        const EdgeInsets.only(top: 25, right: 25, left: 25),
+                    padding: const EdgeInsets.only(
+                        top: 15, right: 15, left: 15, bottom: 60),
                     child: (widget.mealList.isEmpty || favoriteAndEmpty)
                         ? const Center(
                             child: Column(
@@ -184,7 +186,7 @@ class _FullMealListState extends ConsumerState<FullMealList> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 20.0,
+                                    //  crossAxisSpacing: 10.0,
                                     childAspectRatio: 2 / 3),
                             itemBuilder: (ctx, item) {
                               return GestureDetector(
@@ -197,34 +199,95 @@ class _FullMealListState extends ConsumerState<FullMealList> {
                                 },
                                 child: Container(
                                   //  alignment: Alignment(0, 1),
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  height: 50,
-                                  width: 35,
+                                  padding: EdgeInsets.only(right: 1, left: 1),
+                                  margin: const EdgeInsets.only(
+                                      // bottom: 10,
+                                      //  left: 10,
+                                      // right: 10,
+                                      ),
+                                  //  height: 183.41,
+                                  // width: 160,
                                   // color: Colors.grey.withOpacity(0.4),
                                   child: Stack(
                                     children: [
                                       Positioned(
-                                          bottom: 0,
-                                          left: 10,
-                                          child: Container(
-                                            height: 200.41,
-                                            width: 155,
-                                            decoration: ShapeDecoration(
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30),
-                                              ),
-                                              shadows: const [
-                                                BoxShadow(
-                                                  color: Color(0x19393939),
-                                                  blurRadius: 60,
-                                                  offset: Offset(0, 30),
-                                                  spreadRadius: 0,
-                                                )
-                                              ],
+                                        top: 30,
+                                        left: 5,
+                                        right: 5,
+                                        child: Container(
+                                          // alignment: Alignment.bottomCenter,
+                                          padding: EdgeInsets.only(
+                                              top: 115,
+                                              left: 10,
+                                              right: 10,
+                                              bottom: 16),
+
+                                          // height: 200.41,
+                                          // width: 160,
+                                          decoration: ShapeDecoration(
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
                                             ),
-                                          )),
+                                            shadows: const [
+                                              BoxShadow(
+                                                color: Color(0x19393939),
+                                                blurRadius: 60,
+                                                offset: Offset(0, 30),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Container(
+                                                alignment: Alignment.center,
+                                                width: 160,
+                                                height: 45,
+                                                margin:
+                                                    EdgeInsets.only(bottom: 5),
+                                                child: Text(
+                                                  widget.mealList[item].title,
+                                                  softWrap: true,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 22,
+                                                    fontFamily:
+                                                        'SF Pro Rounded',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.95,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 135.13,
+                                                height: 14.93,
+                                                child: Text(
+                                                  widget.mealList[item].price
+                                                      .toString(),
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFFA4A0C),
+                                                    fontSize: 17,
+                                                    fontFamily:
+                                                        'SF Pro Rounded',
+                                                    fontWeight: FontWeight.w700,
+                                                    height: 0.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                       Positioned(
                                         top: 0,
                                         right: 20,
@@ -241,48 +304,6 @@ class _FullMealListState extends ConsumerState<FullMealList> {
                                           ),
                                         ),
                                       ),
-                                      Positioned(
-                                        bottom: 45,
-                                        left: 20,
-                                        child: SizedBox(
-                                          width: 110.17,
-                                          height: 40.54,
-                                          child: Text(
-                                            widget.mealList[item].title,
-                                            softWrap: true,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 22,
-                                              fontFamily: 'SF Pro Rounded',
-                                              fontWeight: FontWeight.w600,
-                                              height: 0.95,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        bottom: 10,
-                                        left: 20,
-                                        child: SizedBox(
-                                          width: 135.13,
-                                          height: 14.93,
-                                          child: Text(
-                                            widget.mealList[item].price
-                                                .toString(),
-                                            textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              color: Color(0xFFFA4A0C),
-                                              fontSize: 17,
-                                              fontFamily: 'SF Pro Rounded',
-                                              fontWeight: FontWeight.w700,
-                                              height: 0.5,
-                                            ),
-                                          ),
-                                        ),
-                                      )
                                     ],
                                   ),
                                 ),
